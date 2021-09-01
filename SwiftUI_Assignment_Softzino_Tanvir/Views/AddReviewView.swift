@@ -12,7 +12,7 @@ struct AddReviewView: View {
     @StateObject var storeDetailForReviewVM:StoreDetailVIewModel
     var body: some View {
         ZStack{
-            Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
+            Color(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9813820969, alpha: 1))
             VStack{
                 TextField("Enter Your Name", text: $storeDetailForReviewVM.name)
                     .foregroundColor(.black)
@@ -23,9 +23,8 @@ struct AddReviewView: View {
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10).stroke(Color.gray,lineWidth: 1)
-                    ).padding()
+                    .shadow(color:.gray,radius: 1)
+                    .padding()
                     
                 
                 TextEditor(text: $storeDetailForReviewVM.review)
@@ -33,9 +32,8 @@ struct AddReviewView: View {
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10).stroke(Color.gray,lineWidth: 1)
-                    ).padding()
+                    .shadow(color:.gray,radius: 1)
+                    .padding()
                 
                 
                 Button(action: {
@@ -44,15 +42,29 @@ struct AddReviewView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("SAVE")
+                        .bold()
                         .frame(width:UIScreen.main.bounds.width - 50)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(Color.white)
                         .cornerRadius(15)
-                })
+                        .shadow(color:.gray,radius: 1)
+                }).padding()
                 
                 Spacer()
             }.navigationBarTitle("Add Review",displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: btnBack)
+        }
+    }
+    var btnBack: some View {
+        Button(action: {self.presentationMode.wrappedValue.dismiss()}) {
+            HStack {
+                Image(systemName: "chevron.left") // set image here
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.black)
+                    .font(.system(size: 25,weight:.bold))
+            }
         }
     }
 }

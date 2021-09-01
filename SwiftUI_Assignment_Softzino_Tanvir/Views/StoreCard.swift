@@ -14,15 +14,40 @@ struct StoreCard: View {
         HStack{
             KFImage(URL(string: store.storeImageURL))
                 .resizable()
-                .frame(width: 128, height: 128)
+                .frame(width: 80, height: 60)
                 
-                    
+            
             VStack(alignment:.leading){
-                Text(store.storeName + "-" + store.storeNo)
-                Text(store.cityName + "," + store.countryName)
-                Text("\(String(describing: store.geoCode))" + "," + store.shoppingCenterName)
-            }
-        }
+                Group{
+                    Text(store.storeName + "-" + store.storeNo)
+                        .padding(.bottom,2)
+                    Text(store.cityName + ", " + store.countryName)
+                        .padding(.bottom,2)
+                    if store.geoCode == "N/A"{
+                        Text(store.shoppingCenterName)
+                            .padding(.bottom,2)
+                    }else{
+                        Text(store.geoCode + ", " + store.shoppingCenterName)
+                            .padding(.bottom,2)
+                    }
+                    
+                        
+                }.foregroundColor(.black)
+                .font(.system(size: 13))
+                
+            }.padding(.leading,5)
+            .padding(.trailing,15)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .font(.system(size: 25))
+                .foregroundColor(.black)
+        }.padding(12)
+        .background(Color.white)
+        .cornerRadius(15)
+        .shadow(color: Color.gray, radius: 2)
+        .padding(.bottom,5)
     }
 }
 

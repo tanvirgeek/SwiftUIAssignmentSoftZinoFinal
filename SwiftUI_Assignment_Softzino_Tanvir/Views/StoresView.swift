@@ -10,21 +10,34 @@ import Kingfisher
 
 struct StoresView: View {
     @StateObject private var storesVM = StoresViewModel()
+    
+    init(){
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.black]
+        UINavigationBar.appearance().barTintColor = .white
+        UINavigationBar.appearance().backgroundColor = .white
+        //UINavigationBarAppearance().shadowColor = .red
+    }
+    
     var body: some View {
-        if storesVM.stores.count == 0{
-            ProgressView()
-        }else{
-            List{
-                ForEach(storesVM.stores){ store in
+        ZStack{
+            Color(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9813820969, alpha: 1))
+            if storesVM.stores.count == 0{
+                ProgressView()
+            }else{
+                ScrollView{
                     LazyVStack{
-                        NavigationLink(destination: StoreDetailView(store: store)) {
-                            StoreCard(store: store)
+                        ForEach(storesVM.stores){ store in
+                            
+                            NavigationLink(destination: StoreDetailView(store: store)) {
+                                StoreCard(store: store)
+                            }
                         }
-                    }
-                }
-            }.navigationTitle("Apple Stores")
+                    }.padding(7)
+                    
+                    
+                }.navigationBarTitle("Apple Stores", displayMode: .inline)
+            }
         }
-        
     }
 }
 

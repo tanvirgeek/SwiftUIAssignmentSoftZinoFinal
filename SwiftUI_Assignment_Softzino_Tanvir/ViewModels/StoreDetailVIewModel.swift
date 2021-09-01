@@ -30,7 +30,7 @@ class StoreDetailVIewModel:ObservableObject{
     }
     func openingHoursSave(){
         let df = DateFormatter()
-        df.dateFormat = "HH:mm"
+        df.dateFormat = "hh:mm a"
         let shortStartingHour = self.startingHour
         let shortClosingHour = self.closingHour
         let startingHourDateString = df.string(from: shortStartingHour)

@@ -13,7 +13,7 @@ struct AddOpeningHourView: View {
     @StateObject var addOpeningHourVM:StoreDetailVIewModel
     var body: some View {
         ZStack(){
-            Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
+            Color(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9813820969, alpha: 1))
             VStack{
                 Form{
                     Section(){
@@ -23,32 +23,58 @@ struct AddOpeningHourView: View {
                             }
                         }
                     }
-                    
-                    
-                    Section(footer:Text("Select Opening Hour")){
-                        DatePicker( "", selection: $addOpeningHourVM.startingHour, displayedComponents: .hourAndMinute)
+                    Section{
+                        HStack(spacing:10){
+                            VStack(alignment:.leading){
+                                
+                                DatePicker("",selection: $addOpeningHourVM.startingHour, displayedComponents: .hourAndMinute)
+                                    .offset(x: -75, y: 0)
+                                
+                                Text("Select Opening Hour").font(.system(size:11))
+                            }
+                            
+                            VStack(alignment:.leading){
+                                
+                                DatePicker("", selection: $addOpeningHourVM.closingHour, displayedComponents: .hourAndMinute)
+                                    .offset(x: -75, y: 0)
+                                
+                                Text("Select Closing Hour").font(.system(size:11))
+                            }
+                            
+                        }
                     }
                     
-                    Section(footer:Text("Select Closing Hour")){
-                        DatePicker("", selection: $addOpeningHourVM.closingHour, displayedComponents: .hourAndMinute)
-                    }
                     
-                }
+                    
+                }.frame(height:190)
                 
                 Button(action: {
                     addOpeningHourVM.openingHoursSave()
                     addOpeningHourVM.firstAppearance = false
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
-                        Text("Save")
+                        Text("SAVE")
                             .frame(width:UIScreen.main.bounds.width - 50)
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(Color.white)
                             .cornerRadius(15)
-                })
+                }).padding()
                 Spacer()
             }.navigationBarTitle("Add Opening Hours",displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: btnBack)
+        }
+    }
+    
+    var btnBack: some View {
+        Button(action: {self.presentationMode.wrappedValue.dismiss()}) {
+            HStack {
+                Image(systemName: "chevron.left") // set image here
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.black)
+                    .font(.system(size: 25,weight:.bold))
+            }
         }
     }
 }

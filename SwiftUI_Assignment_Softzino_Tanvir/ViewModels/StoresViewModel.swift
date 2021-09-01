@@ -90,8 +90,12 @@ class StoreViewModel:Identifiable{
     var regionName:String{
         return store.regionName ?? "No region Name"
     }
-    var geoCode:Int?{
-        return store.geoCodee
+    var geoCode:String{
+        if let geoCodeInt = store.geoCodee{
+            return String(geoCodeInt)
+        }else{
+            return "N/A"
+        }
     }
     var shoppingCenterName:String{
         return store.shoppingCenterName
